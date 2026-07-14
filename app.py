@@ -8,6 +8,7 @@ API: v1
 License: MIT
 """
 
+import os
 from flask import Flask, jsonify
 from datetime import datetime, timezone
 
@@ -15,8 +16,8 @@ from datetime import datetime, timezone
 # Configuration
 # ---------------------------------------------------------
 
-HOST = "0.0.0.0"
-PORT = 8000
+HOST = os.getenv("TBTS_HOST", "127.0.0.1")
+PORT = int(os.getenv("TBTS_PORT", "8000"))
 
 SERVICE_NAME = "TimeBoard Time Service"
 SERVICE_SHORT_NAME = "TBTS"
