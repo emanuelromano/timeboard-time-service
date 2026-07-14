@@ -16,7 +16,7 @@ from datetime import datetime, timezone
 # ---------------------------------------------------------
 
 HOST = "0.0.0.0"
-PORT = 80
+PORT = 8000
 
 SERVICE_NAME = "TimeBoard Time Service"
 SERVICE_SHORT_NAME = "TBTS"
