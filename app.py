@@ -48,6 +48,7 @@ def customize_headers(response):
 
     # Hide Werkzeug/Python version
     response.headers["Server"] = f"{SERVICE_SHORT_NAME}/{SERVICE_VERSION}"
+    response.headers["Cache-Control"] = "no-store"
 
     return response
 
