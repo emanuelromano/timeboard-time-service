@@ -87,6 +87,23 @@ def api():
 
 
 # ---------------------------------------------------------
+# Health Check
+# ---------------------------------------------------------
+
+@app.route("/api/health")
+def health():
+
+    return jsonify({
+        "status": "ok",
+        "service": SERVICE_SHORT_NAME,
+        "version": SERVICE_VERSION,
+        "utc_datetime": datetime.now(timezone.utc)
+            .isoformat(timespec="seconds")
+            .replace("+00:00", "Z")
+    })
+
+
+# ---------------------------------------------------------
 # API v1 - UTC time
 # ---------------------------------------------------------
 
