@@ -16,12 +16,16 @@ from datetime import datetime, timezone
 # Configuration
 # ---------------------------------------------------------
 
-HOST = os.getenv("TBTS_HOST", "127.0.0.1")
-PORT = int(os.getenv("TBTS_PORT", "8000"))
-
-SERVICE_NAME = "TimeBoard Time Service"
-SERVICE_SHORT_NAME = "TBTS"
-SERVICE_VERSION = "1.0.0"
+from config import (
+    HOST,
+    PORT,
+    SERVICE_NAME,
+    SERVICE_SHORT_NAME,
+    SERVICE_VERSION,
+    API_VERSION,
+    SERVICE_DESCRIPTION,
+    PROJECT_URL,
+)
 
 app = Flask(__name__)
 
@@ -65,9 +69,9 @@ def index():
         "short_name": SERVICE_SHORT_NAME,
         "version": SERVICE_VERSION,
         "status": "online",
-        "description": "Lightweight HTTP time service for legacy Palm OS devices.",
+        "description": SERVICE_DESCRIPTION,
         "documentation": "/api",
-        "health": "/api/health",
+        "repository": PROJECT_URL
     })
 
 
@@ -79,7 +83,7 @@ def index():
 def api():
 
     return jsonify({
-        "latest": SERVICE_VERSION,
+        "latest": API_VERSION,
         "health": "/api/health",
         "versions": {
         "v1": {
