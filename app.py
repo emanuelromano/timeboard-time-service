@@ -65,7 +65,8 @@ def index():
         "version": SERVICE_VERSION,
         "status": "online",
         "description": "Lightweight HTTP time service for legacy Palm OS devices.",
-        "documentation": "/api"
+        "documentation": "/api",
+        "health": "/api/health",
     })
 
 
@@ -78,9 +79,10 @@ def api():
 
     return jsonify({
         "latest": "v1",
+        "health": "/api/health",
         "versions": {
-            "v1": {
-                "utc": "/api/v1/utc"
+        "v1": {
+            "utc": "/api/v1/utc"
             }
         }
     })
