@@ -21,7 +21,7 @@ PORT = int(os.getenv("TBTS_PORT", "8000"))
 
 SERVICE_NAME = "TimeBoard Time Service"
 SERVICE_SHORT_NAME = "TBTS"
-SERVICE_VERSION = "1.0"
+SERVICE_VERSION = "1.0.0"
 
 app = Flask(__name__)
 
