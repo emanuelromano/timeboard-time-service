@@ -78,7 +78,7 @@ def index():
 def api():
 
     return jsonify({
-        "latest": "v1",
+        "latest": SERVICE_VERSION,
         "health": "/api/health",
         "versions": {
         "v1": {
