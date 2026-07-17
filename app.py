@@ -10,7 +10,8 @@ License: MIT
 
 import os
 from flask import Flask, jsonify
-from datetime import datetime, timezone
+from datetime import datetime, UTC
+from flask import render_template
 
 # ---------------------------------------------------------
 # Configuration
@@ -61,18 +62,31 @@ def customize_headers(response):
 # Root endpoint
 # ---------------------------------------------------------
 
+# @app.route("/")
+# def index():
+#     return jsonify({
+#         "service": SERVICE_NAME,
+#         "short_name": SERVICE_SHORT_NAME,
+#         "version": SERVICE_VERSION,
+#         "status": "online",
+#         "description": SERVICE_DESCRIPTION,
+#         "documentation": "/api",
+#         "repository": PROJECT_URL
+#     })
+
 @app.route("/")
 def index():
+    current_utc = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
 
-    return jsonify({
-        "service": SERVICE_NAME,
-        "short_name": SERVICE_SHORT_NAME,
-        "version": SERVICE_VERSION,
-        "status": "online",
-        "description": SERVICE_DESCRIPTION,
-        "documentation": "/api",
-        "repository": PROJECT_URL
-    })
+    return render_template(
+        "index.html",
+        service_name=SERVICE_NAME,
+        version=SERVICE_VERSION,
+        description=SERVICE_DESCRIPTION,
+        api_version=API_VERSION,
+        project_url=PROJECT_URL,
+        current_utc=current_utc
+    )
 
 
 # ---------------------------------------------------------
