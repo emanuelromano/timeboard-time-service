@@ -9,9 +9,12 @@ License: MIT
 """
 
 import os
-from flask import Flask, jsonify
 from datetime import datetime, timezone, UTC
-from flask import render_template
+from flask import Flask, jsonify, render_template
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from werkzeug.middleware.proxy_fix import ProxyFix
+
 
 # ---------------------------------------------------------
 # Configuration
@@ -29,6 +32,18 @@ from config import (
 )
 
 app = Flask(__name__)
+
+app.wsgi_app = ProxyFix(
+    app.wsgi_app,
+    x_for=1
+)
+
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=[]
+)
+
+limiter.init_app(app)
 
 
 # ---------------------------------------------------------
@@ -62,18 +77,6 @@ def customize_headers(response):
 # Root endpoint
 # ---------------------------------------------------------
 
-# @app.route("/")
-# def index():
-#     return jsonify({
-#         "service": SERVICE_NAME,
-#         "short_name": SERVICE_SHORT_NAME,
-#         "version": SERVICE_VERSION,
-#         "status": "online",
-#         "description": SERVICE_DESCRIPTION,
-#         "documentation": "/api",
-#         "repository": PROJECT_URL
-#     })
-
 @app.route("/")
 def index():
     current_utc = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -94,6 +97,7 @@ def index():
 # ---------------------------------------------------------
 
 @app.route("/api")
+@limiter.limit("10 per minute")
 def api():
 
     return jsonify({
@@ -112,6 +116,7 @@ def api():
 # ---------------------------------------------------------
 
 @app.route("/api/health")
+@limiter.limit("10 per minute")
 def health():
 
     return jsonify({
@@ -129,11 +134,26 @@ def health():
 # ---------------------------------------------------------
 
 @app.route("/api/v1/utc")
+@limiter.limit("20 per minute")
 def api_v1_utc():
 
     now = datetime.now(timezone.utc)
 
     return jsonify(build_v1_utc_response(now))
+
+
+# ---------------------------------------------------------
+# ERROR Handler - Error 429
+# ---------------------------------------------------------
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+
+    return jsonify({
+        "error": "rate_limit_exceeded",
+        "message": "Too many requests.",
+        "status": 429
+    }), 429
 
 
 # ---------------------------------------------------------
