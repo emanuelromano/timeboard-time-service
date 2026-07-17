@@ -14,6 +14,7 @@ from flask import Flask, jsonify, render_template
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from werkzeug.middleware.proxy_fix import ProxyFix
+from flask import request #DEBUG
 
 
 # ---------------------------------------------------------
@@ -154,6 +155,20 @@ def ratelimit_handler(e):
         "message": "Too many requests.",
         "status": 429
     }), 429
+
+
+# ---------------------------------------------------------
+# DEBUG ENDPOINT
+# ---------------------------------------------------------
+
+@app.route("/debug/ip")
+def debug_ip():
+
+    return jsonify({
+        "remote_addr": request.remote_addr,
+        "x_real_ip": request.headers.get("X-Real-IP"),
+        "x_forwarded_for": request.headers.get("X-Forwarded-For")
+    })
 
 
 # ---------------------------------------------------------
