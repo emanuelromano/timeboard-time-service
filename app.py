@@ -10,7 +10,7 @@ License: MIT
 
 import os
 from flask import Flask, jsonify
-from datetime import datetime, UTC
+from datetime import datetime, timezone, UTC
 from flask import render_template
 
 # ---------------------------------------------------------
