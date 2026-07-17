@@ -112,23 +112,23 @@
 
         <tr>
 
-            <td style="padding-left:6px;">
+            <td width="40" valign="middle">
 
-                <img src="/static/status_online.gif" width="8" height="8" alt="Online">
+                <a href="/">
 
-                <b>ONLINE</b>
+                    <img src="/static/logo.gif" width="32" height="32" border="0" alt="TBTS">
+
+                </a>
 
             </td>
 
-        </tr>
+            <td valign="middle">
 
-        <tr>
+                <h1>
 
-            <td style="padding-left:6px; padding-top:6px;">
+                    <a class="titlelink" href="/">{{ service_name }}</a>
 
-                <b>UTC:</b>
-
-                {{ current_utc }}
+                </h1>
 
             </td>
 
@@ -154,13 +154,9 @@
 
         <tr>
 
-            <td style="padding-left:6px; padding-right:4px;">
+            <td style="padding-left:6px;">
 
                 <img src="/static/status_online.gif" width="8" height="8" alt="Online">
-
-            </td>
-
-            <td>
 
                 <b>ONLINE</b>
 
@@ -170,13 +166,9 @@
 
         <tr>
 
-            <td valign="top" style="padding-left:6px; padding-right:4px;">
+            <td style="padding-left:3px; padding-top:6px;">
 
-                <b>UTC</b>
-
-            </td>
-
-            <td>
+                <b>UTC:</b>
 
                 {{ current_utc }}
 
