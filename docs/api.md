@@ -1,10 +1,20 @@
 # TimeBoard Time Service (TBTS) API
 
-This document describes the HTTP endpoints provided by the TimeBoard Time Service.
+This document describes the HTTP endpoints provided by the **TimeBoard Time Service (TBTS)**.
 
-The API is intentionally lightweight and designed to be compatible with legacy Palm OS devices.
+The API is intentionally lightweight and designed to provide long-term compatibility with legacy Palm OS devices.
 
-Base URL
+---
+
+# Base URL
+
+Production server:
+
+```
+http://tbts.coloraturip.com
+```
+
+Generic format:
 
 ```
 http://<server>
@@ -51,7 +61,7 @@ Example response:
 
 # GET /api
 
-Returns information about the available API versions.
+Returns general information about the API and the currently available versions.
 
 Example request:
 
@@ -77,9 +87,9 @@ Example response:
 
 # GET /api/health
 
-Returns the service status.
+Returns the current service status.
 
-This endpoint can be used by monitoring systems to verify that the service is available.
+This endpoint is intended for monitoring systems and automated health checks.
 
 Example request:
 
@@ -125,9 +135,7 @@ Example response:
 
 ## utc_datetime
 
-Current UTC date and time.
-
-Format:
+Current UTC date and time expressed using the ISO 8601 UTC format.
 
 ```
 YYYY-MM-DDTHH:MM:SSZ
@@ -143,13 +151,23 @@ Example:
 
 ## unixtime
 
-Unix timestamp expressed in seconds since January 1st, 1970 (UTC).
+Unix timestamp expressed as the number of seconds elapsed since January 1st, 1970 (UTC).
 
 Example:
 
 ```
 1784060118
 ```
+
+---
+
+# HTTP Headers
+
+Clients should perform standard HTTP GET requests.
+
+No authentication, cookies or custom headers are required.
+
+Responses are returned with the appropriate `Content-Type: application/json` header.
 
 ---
 
@@ -165,7 +183,9 @@ Example:
 
 # Compatibility
 
-TBTS is intentionally implemented over plain HTTP to maximize compatibility with legacy Palm OS devices that cannot reliably communicate using modern HTTPS/TLS protocols.
+TBTS intentionally uses plain HTTP instead of HTTPS to maximize compatibility with legacy Palm OS devices that cannot reliably communicate using modern TLS implementations.
+
+Although the service is published through Cloudflare, HTTP connectivity remains available for legacy clients.
 
 ---
 
@@ -179,18 +199,26 @@ Current version:
 v1
 ```
 
-Future incompatible changes will be published under a new version (for example, `/api/v2/...`) while preserving compatibility with existing clients whenever possible.
+Future incompatible changes will be published under a new version (for example `/api/v2/...`) while preserving existing versions for as long as practical.
+
+---
+
+# Stability
+
+The `/api/v1` endpoints are intended to remain stable.
+
+Breaking changes will only be introduced through a new API version.
+
+---
+
+# Design Goals
+
+The primary objective of TBTS is not to provide a full-featured time service, but rather a simple, reliable and long-term stable HTTP API for legacy Palm OS devices.
+
+The service intentionally avoids unnecessary dependencies, authentication mechanisms, client state and modern web technologies that could reduce compatibility with older hardware.
 
 ---
 
 # License
 
 This project is released under the MIT License.
-
----
-
-# Design Goals
-
-The primary goal of TBTS is not to provide a full-featured time service, but to offer a simple, reliable and long-term stable HTTP API that can be consumed by legacy Palm OS devices.
-
-The service intentionally avoids unnecessary dependencies, authentication mechanisms and modern web technologies that could reduce compatibility with older hardware.
