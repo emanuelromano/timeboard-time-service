@@ -8,17 +8,11 @@ API: v1
 License: MIT
 """
 
-import config
-
-print(config.HOST)
-print(config.PORT)
-
 from datetime import datetime, timezone, UTC
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from werkzeug.middleware.proxy_fix import ProxyFix
-#from flask import request #DEBUG
 
 # ---------------------------------------------------------
 # Configuration
