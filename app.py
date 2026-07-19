@@ -8,14 +8,17 @@ API: v1
 License: MIT
 """
 
-import os
+import config
+
+print(config.HOST)
+print(config.PORT)
+
 from datetime import datetime, timezone, UTC
 from flask import Flask, jsonify, render_template
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from werkzeug.middleware.proxy_fix import ProxyFix
 #from flask import request #DEBUG
-
 
 # ---------------------------------------------------------
 # Configuration
@@ -52,7 +55,6 @@ limiter.init_app(app)
 # ---------------------------------------------------------
 
 def build_v1_utc_response(now):
-    """Builds the UTC response for API v1."""
 
     return {
         "utc_datetime": now.isoformat(timespec="seconds").replace("+00:00", "Z"),
