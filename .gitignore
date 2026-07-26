@@ -29,3 +29,4 @@ dist/
 Thumbs.db
 Desktop.ini
 usersetting.cfg
+*.cfg
