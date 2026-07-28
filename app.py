@@ -55,7 +55,9 @@ def build_v1_utc_response(now):
 
     return {
         "utc_datetime": now.isoformat(timespec="seconds").replace("+00:00", "Z"),
-        "unixtime": int(now.timestamp())
+        "unixtime": int(now.timestamp()),
+        "api_version": API_VERSION,
+        "service_version": SERVICE_VERSION
     }
 
 
