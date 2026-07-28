@@ -84,10 +84,12 @@ def index():
     return render_template(
         "index.html",
         service_name=SERVICE_NAME,
+        service_short_name=SERVICE_SHORT_NAME,
         version=SERVICE_VERSION,
         description=SERVICE_DESCRIPTION,
         api_version=API_VERSION,
         project_url=PROJECT_URL,
+        license=LICENSE,
         current_utc=current_utc
     )
 
