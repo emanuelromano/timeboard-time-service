@@ -4,7 +4,7 @@ TimeBoard Time Service (TBTS)
 A lightweight HTTP time service designed for legacy Palm OS devices.
 
 Author: Emanuel Romano
-API: v1
+
 License: MIT
 """
 
@@ -26,6 +26,7 @@ from config import (
     SERVICE_VERSION,
     API_VERSION,
     SERVICE_DESCRIPTION,
+    RATE_LIMIT,
     PROJECT_URL,
 )
 
@@ -75,6 +76,7 @@ def customize_headers(response):
 # ---------------------------------------------------------
 
 @app.route("/")
+@limiter.limit(RATE_LIMIT)
 def index():
     current_utc = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
 
@@ -94,7 +96,7 @@ def index():
 # ---------------------------------------------------------
 
 @app.route("/api")
-@limiter.limit("10 per minute")
+@limiter.limit(RATE_LIMIT)
 def api():
 
     return jsonify({
@@ -113,7 +115,7 @@ def api():
 # ---------------------------------------------------------
 
 @app.route("/api/health")
-@limiter.limit("10 per minute")
+@limiter.limit(RATE_LIMIT)
 def health():
 
     return jsonify({
@@ -131,7 +133,7 @@ def health():
 # ---------------------------------------------------------
 
 @app.route("/api/v1/utc")
-@limiter.limit("20 per minute")
+@limiter.limit(RATE_LIMIT)
 def api_v1_utc():
 
     now = datetime.now(timezone.utc)
