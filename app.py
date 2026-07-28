@@ -28,6 +28,7 @@ from config import (
     SERVICE_DESCRIPTION,
     RATE_LIMIT,
     PROJECT_URL,
+    LICENSE
 )
 
 app = Flask(__name__)
