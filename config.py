@@ -69,6 +69,11 @@ PROJECT_URL = os.getenv(
     "https://github.com/emanuelromano/timeboard-time-service"
 )
 
+CURRENT_DEVELOPING_YEAR = os.getenv(
+    "TBTS_CURRENT_DEVELOPING_YEAR",
+    "2026"
+)
+
 LICENSE = os.getenv(
     "TBTS_LICENSE",
     "MIT"

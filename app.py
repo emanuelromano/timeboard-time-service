@@ -28,6 +28,7 @@ from config import (
     SERVICE_DESCRIPTION,
     RATE_LIMIT,
     PROJECT_URL,
+    CURRENT_DEVELOPING_YEAR,
     LICENSE
 )
 
@@ -89,6 +90,7 @@ def index():
         description=SERVICE_DESCRIPTION,
         api_version=API_VERSION,
         project_url=PROJECT_URL,
+        current_developing_year=CURRENT_DEVELOPING_YEAR,
         license=LICENSE,
         current_utc=current_utc
     )
