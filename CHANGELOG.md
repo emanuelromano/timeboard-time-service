@@ -22,3 +22,15 @@
 
 ### Changed
 - Improved production deployment behind Nginx.
+
+
+## [1.0.2] - 2026-07-28
+
+### Added
+- Added `api_version` to the `/api/v1/utc` response.
+- Added `service_version` to the `/api/v1/utc` response.
+- Clients can now identify the API and service versions that produced a successful time response.
+
+### Changed
+- Extended the UTC endpoint response with service metadata while preserving compatibility with existing clients.
+- Updated API documentation to reflect the current public TBTS endpoint and response format.
