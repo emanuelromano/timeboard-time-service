@@ -1,12 +1,12 @@
 # TimeBoard Time Service (TBTS)
 
-![Python](https://img.shields.io/badge/Python-3.14-blue)
-![Version](https://img.shields.io/badge/version-1.0.1-green)
+![Python](https://img.shields.io/badge/Python-3.11.9-blue)
+![Version](https://img.shields.io/badge/version-1.0.2-green)
 ![License](https://img.shields.io/github/license/emanuelromano/timeboard-time-service)
 
-TimeBoard Time Service (TBTS) is a lightweight HTTP API that provides accurate Coordinated Universal Time (UTC) for legacy Palm OS devices.
+TimeBoard Time Service (TBTS) is a lightweight HTTP time service API designed specifically for the **TimeBoard** and **TBTS** applications for Palm OS.
 
-Originally created as the backend service for **TimeBoard**, it is designed to be simple, reliable, and compatible with legacy Palm OS networking libraries that only support plain HTTP connections.
+It provides accurate Coordinated Universal Time (UTC) through a simple API designed to remain compatible with legacy Palm OS networking libraries that only support plain HTTP connections.
 
 ## Features
 
@@ -14,15 +14,17 @@ Originally created as the backend service for **TimeBoard**, it is designed to b
 - HTTP/1.0 compatible
 - Compatible with legacy clients using plain HTTP
 - Versioned REST API
-- Designed for legacy Palm OS devices
+- Designed for TimeBoard and TBTS on Palm OS
+- Environment-based configuration
 - Self-hostable using Python and Flask
 - Reverse proxy friendly (Nginx + Gunicorn)
-- Per-client rate limiting
+- Configurable per-client rate limiting
 
 ## Design Goals
 
 TBTS was designed with the following goals in mind:
 
+- Provide a dedicated time service for TimeBoard and TBTS.
 - Keep the API simple and lightweight.
 - Maximize compatibility with legacy Palm OS devices.
 - Minimize resource usage.
@@ -111,19 +113,50 @@ Install the project dependencies:
 pip install -r requirements.txt
 ```
 
+Create the local environment configuration from the included example:
+
+### Windows
+
+```powershell
+Copy-Item .env.example .env
+```
+
+### Linux / macOS
+
+```bash
+cp .env.example .env
+```
+
+Adjust the values in `.env` if needed.
+
 Start the development server:
 
 ```bash
 python app.py
 ```
 
-The service will start using the host and port configured in `config.py`.
+The service will start using the configuration defined in `.env`, with defaults provided by `config.py`.
+
+## Configuration
+
+TBTS uses environment variables for runtime configuration. A `.env.example` file is included as a reference and can be copied to `.env` for local use.
+
+The `.env` file is excluded from version control.
+
+Example:
+
+```env
+TBTS_HOST=127.0.0.1
+TBTS_PORT=8000
+TBTS_RATE_LIMIT=10 per minute
+```
 
 ## Technology Stack
 
 - Python
 - Flask
 - Flask-Limiter
+- python-dotenv
 - Gunicorn
 - Nginx
 
