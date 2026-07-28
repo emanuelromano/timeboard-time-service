@@ -163,6 +163,7 @@ def ratelimit_handler(e):
 # ---------------------------------------------------------
 
 # @app.route("/debug/ip")
+#@limiter.limit(RATE_LIMIT)
 # def debug_ip():
 
 #     return jsonify({
